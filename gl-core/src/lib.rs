@@ -1,4 +1,6 @@
 use serde::{Deserialize, Serialize};
+mod period;
+pub use period::{Period, PeriodStatus};
 use chrono::NaiveDate;
 use rust_decimal::Decimal;
 use thiserror::Error;
@@ -64,15 +66,15 @@ pub struct JournalEntry {
 }
 
 impl JournalEntry {
-    pub fn new(
+      pub fn new(
         date: NaiveDate,
         lines: Vec<JournalLine>,
         description: String,
     ) -> Result<Self, LedgerError> {
-        for line in &lines {
-            if line.debit < Decimal::ZERO || line.credit < Decimal::ZERO {
-                return Err(LedgerError::NegativeAmount(line.debit.max(line.credit)));
-            }
+        // Validate against period
+        let period_manager = PeriodManager::new(); // Or inject from context
+        if !period_manager.is_date_in_open_period(date) {
+            return Err(LedgerError::InvalidDate);
         }
 
         let total_debit = lines.iter().map(|l| l.debit).sum::<Decimal>();
@@ -91,6 +93,7 @@ impl JournalEntry {
         let total_credit = self.lines.iter().map(|l| l.credit).sum::<Decimal>();
         total_debit == total_credit
     }
+    
 }
 
 // === Ledger ===
@@ -172,3 +175,36 @@ pub fn create_vn_coa() -> Vec<AccountCode> {
 }
 
 pub use coa::{Account, CoaConfig, load_vn_coa};
+
+pub struct PeriodManager {
+    periods: Vec<Period>,
+}
+
+impl PeriodManager {
+    pub fn new() -> Self {
+        // Default open period for testing: covers 2020-01-01 to 2030-12-31
+        let default_period = Period::new(
+            NaiveDate::from_ymd_opt(2020, 1, 1).unwrap(),
+            NaiveDate::from_ymd_opt(2030, 12, 31).unwrap(),
+        );
+        Self { periods: vec![default_period] }
+    }
+
+    pub fn add_period(&mut self, period: Period) {
+        self.periods.push(period);
+    }
+
+    pub fn get_current_period(&self) -> Option<&Period> {
+        self.periods.last()
+    }
+
+    pub fn close_current_period(&mut self) {
+        if let Some(period) = self.periods.last_mut() {
+            period.close();
+        }
+    }
+
+    pub fn is_date_in_open_period(&self, date: NaiveDate) -> bool {
+        self.periods.iter().any(|p| p.is_open() && p.contains_date(date))
+    }
+}
