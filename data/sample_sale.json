@@ -1,0 +1,16 @@
+{
+  "date": "2025-01-01",
+  "lines": [
+    {
+      "account": "5111",
+      "debit": 100000,
+      "credit": 0
+    },
+    {
+      "account": "1111",
+      "debit": 0,
+      "credit": 100000
+    }
+  ],
+  "description": "Cash sale"
+}
