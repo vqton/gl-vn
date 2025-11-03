@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "gl-core",
+    "gl-cli"
+]
+resolver = "2"
+[workspace.dependencies]
+# Shared dependencies across crates
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "1.0"
+chrono = "0.4"
+rust_decimal = "1.0"
+csv = "1.0"
+clap = { version = "4.0", features = ["derive"] }
