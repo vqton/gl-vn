@@ -20,18 +20,15 @@ Built with **Rust** for performance, memory safety, and concurrency — ideal fo
 ---
 
 ## 🧩 Architecture
-
-```mermaid
 graph TD
-    A[CLI / Web UI] --> B[gl-api (axum)]
-    B --> C[gl-core (Domain Logic)]
-    C --> D[PostgreSQL (ACID)]
-    C --> E[Tracing / Logging]
-    C --> F[CSV / JSON I/O]
-    C --> G[Report Generator (B01-DNN, B02-DNN)]
-    D --> H[Audit Trail (Immutable Log)]
-    H --> I[Compliance with Decree 133/2016/ND-CP]
-````
+    A[CLI / Web UI] --> B[gl-api (axum)]
+    B --> C[gl-core (Domain Logic)]
+    C --> D[PostgreSQL (ACID)]
+    C --> E[Tracing / Logging]
+    C --> F[CSV / JSON I/O]
+    C --> G[Report Generator (B01-DNN, B02-DNN)]
+    D --> H[Audit Trail (Immutable Log)]
+    H --> I[Compliance with Decree 133/2016/ND-CP]
 
 -----
 
