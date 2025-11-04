@@ -20,16 +20,17 @@ Built with **Rust** for performance, memory safety, and concurrency — ideal fo
 ---
 ## 🧩 Architecture
 
-graph TD
-    A[CLI / Web UI] --> B[gl-api (axum)]
-    B --> C[gl-core (Domain Logic)]
-    C --> D[PostgreSQL (ACID)]
-    C --> E[Tracing / Logging]
-    C --> F[CSV / JSON I/O]
-    C --> G[Report Generator (B01-DNN, B02-DNN)]
-    D --> H[Audit Trail (Immutable Log)]
-    H --> I[Compliance with Decree 133/2016/ND-CP]
-
+```mermaid
+flowchart TD
+    A[CLI / Web UI] -->|Send requests| B(gl-api (axum))
+    B -->|Invoke logic| C{gl-core (Domain Logic)}
+    C -->|Store data| D[(PostgreSQL - ACID)]
+    C -->|Trace events| E[[Tracing / Logging]]
+    C -->|Export| F[[CSV / JSON I/O]]
+    C -->|Generate| G[[Report Generator (B01-DNN, B02-DNN)]]
+    D -->|Record| H[(Audit Trail - Immutable Log)]
+    H -->|Comply| I([Compliance: Decree 133/2016/ND-CP])
+```
 -----
 
 ## 📦 Project Structure
