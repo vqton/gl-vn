@@ -1,4 +1,3 @@
-````markdown
 # 📚 VAS General Ledger (Rust)
 
 > A secure, audit-ready, VAS-compliant accounting system built in Rust — designed for Vietnamese accounting firms.
