@@ -136,7 +136,7 @@ MIT License — see [LICENSE](LICENSE) file.
 ## 💬 Contact
 
 For questions or feedback, contact:  
-📧 [your.email@example.com]
+
 
 ---
 
@@ -150,9 +150,3 @@ Contributions are welcome! Please open an issue or submit a PR.
 
 Thank you for using this project. Together, we’re building the future of **secure, compliant, and auditable accounting software** in Vietnam.
 
----
-
-> 💡 *“Build the good logic core first.”* — Your mantra, your guide.
-```
-
-You can copy and paste this directly into a `README.md` file. Let me know if you’d like to add badges, links, or a license file!
