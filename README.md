@@ -18,9 +18,8 @@ It focuses on:
 Built with **Rust** for performance, memory safety, and concurrency — ideal for financial software.
 
 ---
-
 ## 🧩 Architecture
-```mermaid
+
 graph TD
     A[CLI / Web UI] --> B[gl-api (axum)]
     B --> C[gl-core (Domain Logic)]
